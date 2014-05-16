@@ -1,2 +1,35 @@
-<h1>Documents#view</h1>
-<p>Find me in app/views/documents/view.html.erb</p>
+<style>
+a.definified {
+  color: black; text-decoration: none;
+}
+
+a.definified:hover, a.definified:visited, a.definified:link, a.definified:active
+{
+    text-decoration: none;
+}
+
+.content {
+  font-size: 15pt;
+  max-width: 500pt;
+  margin-left:auto;
+  margin-right:auto;
+}
+.title {
+  text-align: center;
+}
+
+#edit {
+  text-align: right;
+}
+</style>
+<div class="container">
+
+<h1 class="title"><%= @definified_title.strip != "" ? @definified_title.html_safe : "(No title)" %></h1>
+<p class="content"><%= @definified_content.strip != "" ? @definified_content.html_safe : "(No content yet)" %></p>
+<p id="edit" class="content"><a href="/<%= @document.name %>/edit" class="btn btn-primary btn-lg" role="button">Edit</a></p>
+
+</div>
+
+<script>
+$('a').tooltip();
+</script>

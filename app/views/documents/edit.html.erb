@@ -1,2 +1,33 @@
-<h1>Documents#edit</h1>
-<p>Find me in app/views/documents/edit.html.erb</p>
+<style>
+.header {
+  text-align: center;
+}
+#edit-form {
+  margin-left:auto;
+  margin-right:auto;
+}
+</style>
+
+<div class="container">
+  <h1 class="header">Edit This Document</h1>
+  <div>
+    <%= bootstrap_form_for @document, url: "/update", method: "post" do |f| %>
+      <div id="edit-form" class="input-group">
+        <%= render 'layouts/messages' %>
+        <%= f.hidden_field :id %>
+        <%= f.text_field :name, class: :'form-control' %><br>
+        <%= f.text_field :title %><br>
+        <%= f.text_area :content, size: "60x12" %><br>
+        <%= f.submit "Submit" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+$("#document_title").keyup(function(event) {
+  var title = $(this).val();
+  var url = title.replace(/ /g, '-').replace(/[^A-Za-z0-9\-]/g, '');
+  $("#document_name").val(url);
+});
+</script>

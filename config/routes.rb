@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get '/about' => "home#about"
+
   get '/' => "documents#index"
   post "/create" => "documents#create"
   post "/update" => "documents#update"
   
-  get '/:name/edit' => "documents#index"
+  get '/:name/edit' => "documents#edit"
   get '/:name' => "documents#view"
 
   # The priority is based upon order of creation: first created -> highest priority.
