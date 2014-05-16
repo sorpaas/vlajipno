@@ -7,7 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 ActiveSupport::JSON.decode(File.read("db/dictionary.json")).each do |word, definition|
-  puts "word: #{word}, definition: #{definition}"
-  
-  Entry.create({ word: word, definition: definition })
+  if not Entry.find_by word: word
+    puts "word: #{word}, definition: #{definition}"
+    Entry.create({ word: word, definition: definition })
+  end
 end
