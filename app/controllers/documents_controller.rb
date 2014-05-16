@@ -8,12 +8,7 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    flash[:notice] = "Created!"
-    pattern = /[:word:]-[:word:]-\d\d/
-    name = pattern.gen
-    while Document.exists? name: name
-      name = pattern.gen
-    end
+    name = SecureRandom.uuid
       
     @document = Document.create name: name
     redirect_to "/#{name}/edit"
