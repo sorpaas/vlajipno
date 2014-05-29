@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
@@ -30,6 +30,7 @@ gem 'spring',        group: :development
 
 gem 'randexp'
 gem 'bootstrap_form'
+gem 'pandoc-ruby'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -42,4 +43,3 @@ gem 'bootstrap_form'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
