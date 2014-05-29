@@ -52,10 +52,9 @@ class DocumentsController < ApplicationController
     end
 
     content.split(' ').map do |x|
-      e = Entry.find_by word: x.gsub(/[^A-Za-z0-9']/, "")
-      if e
-        converter = PandocRuby.new(e.definition, from: :latex, to: :html)
-        "<a href=\"#\" class=\"definified\" title='#{converter.convert.html_safe}'>#{x}</a> "
+      entry = Entry.find_by word: x.gsub(/[^A-Za-z0-9']/, "")
+      if entry
+        "<a href=\"#\" class=\"definified\" title='#{entry.definition.html_safe}'>#{x}</a> "
       else
         "#{x} "
       end
