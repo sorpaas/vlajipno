@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   def index
-    @documents = Document.all
+    @documents = Document.where('title IS NOT NULL')
   end
 
   def edit
@@ -9,11 +9,11 @@ class DocumentsController < ApplicationController
 
   def create
     name = SecureRandom.uuid
-      
+
     @document = Document.create name: name
     redirect_to "/#{name}/edit"
   end
-  
+
   def update
     @document_attrs = params.require(:document).permit(:id, :name, :title, :content)
     @document = Document.find @document_attrs[:id]
@@ -40,17 +40,17 @@ class DocumentsController < ApplicationController
 
   def view
     @document = Document.find_by name: params[:name].downcase
-    
+
     @definified_title = definify @document.title
     @definified_content = definify @document.content
   end
-  
+
   private
   def definify(content)
     if not content
       return ''
     end
-    
+
     content.split(' ').map do |x|
       e = Entry.find_by word: x.gsub(/[^A-Za-z0-9']/, "")
       if e
