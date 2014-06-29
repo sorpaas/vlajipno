@@ -1,10 +1,12 @@
 class DocumentsController < ApplicationController
   def index
-    @documents = Document.where('title IS NOT NULL')
+    @title = "Home"
+    @documents = Document.where('title IS NOT NULL').select { |x| x.title.present? }
   end
 
   def edit
     @document = Document.find_by name: params[:name]
+    @title = @document.title.present? ? @document.title : "Edit"
   end
 
   def create
@@ -40,21 +42,55 @@ class DocumentsController < ApplicationController
 
   def view
     @document = Document.find_by name: params[:name].downcase
-
     @definified_title = definify @document.title
-    @definified_content = definify @document.content
+
+    @markdown_content = markdown_renderer.render(@document.content)
+    @nokogiri_content = Nokogiri::HTML::DocumentFragment.parse(@markdown_content)
+    @replacing_nodes = []
+    @nokogiri_content.traverse do |x|
+      if x.text?
+        @replacing_nodes << x
+      end
+    end
+    @replacing_nodes.each do |x|
+      x.content.split(' ').map do |word|
+        entry = Dictionary.query word.gsub(/[^A-Za-z0-9']/, "")
+        if entry
+          node = Nokogiri::XML::Node.new('a', @nokogiri_content)
+          node['href'] = '#'
+          node['class'] = 'definified'
+          node['title'] = entry
+          node.content = word
+          x.parent << node
+          x.parent << " "
+        else
+          x.parent << " "
+        end
+      end
+
+      x.remove
+    end
+    @definified_content = @nokogiri_content.to_s
+    @title = @document.title.present? ? @document.title : "(No Title)"
   end
 
   private
+  def markdown_renderer
+    if not @markdown_renderer
+      @markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    end
+    @markdown_renderer
+  end
+
   def definify(content)
     if not content
       return ''
     end
 
     content.split(' ').map do |x|
-      entry = Entry.find_by word: x.gsub(/[^A-Za-z0-9']/, "")
+      entry = Dictionary.query x.gsub(/[^A-Za-z0-9']/, "")
       if entry
-        "<a href=\"#\" class=\"definified\" title='#{entry.definition.html_safe}'>#{x}</a> "
+        "<a href=\"#\" class=\"definified\" title='#{entry}'>#{x}</a> "
       else
         "#{x} "
       end

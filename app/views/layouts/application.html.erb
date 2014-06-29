@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vlajipno</title>
+  <title><%= (@title ? @title : '') + " | vlajipno" %></title>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="/assets/normalize.css" />
+  <link rel="stylesheet" href="/assets/animate.css" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/jquery-ui.min.css" />
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.0/themes/black-tie/jquery-ui.css">
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="/assets/jquery-2.1.1.min.js"></script>
+  <script src="/assets/jquery-ui.min.js"></script>
+  <script src="/assets/viewportchecker.js"></script>
+  <script src="/assets/scripts.js"></script>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">vlajipno</a>
-      </div>
+  <header data-animation="fadeInDownBig">
+    <a href="/" title="Back to Homepage" class="logo">vlajipno</a>
+    <a href="/about" class="toggle">About</a>
+  </header>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-        <%= form_tag("/create", method: "post", class: "navbar-form navbar-right") do %>
-          <button type="submit" class="btn btn-default">Create</button>
-        <% end %>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-<%= yield %>
-
-    <div id="footer">
-      <div class="container">
-        <p class="muted credit">A <a href="http://sorpaas.com">sorpa'as plat</a> Project.</p>
+  <section class="content">
+	  <article>
+	    <header class="gradient-1 gradient-navbar" data-animation="fadeInDownBig">
+      </header>
+      <div class="body" data-animation="fadeInUp">
+        <%= yield %>
       </div>
+      <footer>
+      </footer>
+    </article>
+  </section>
+
+  <footer data-animation="fadeInUp">
+    <div class="copyright">
+      <b>Copyright 2014 <a href="mailto:me@sorpaas.com">sorpa'as</a>.</b>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
     </div>
+  </footer>
 </body>
 </html>

@@ -1,18 +1,16 @@
-<div class="container">
-  <div class="jumbotron">
-    <h1>Welcome to vlajipno!</h1>
-    <p>vlajipno is a Lojban full text dictionary for Lojban beginners to read Lojban texts. </p>
-    <p><a href="/about" class="btn btn-primary btn-lg" role="button">Learn more</a></p>
-  </div>
-  <h1>See Existing Documents</h1>
-  <ul class="list-group">
-  <% @documents.each do |document| %>
-    <li class="list-group-item">
-    <%= link_to document.title, "/#{document.name}"%>
-    </li>  
-  <% end %>
-  </ul>
-  <%= form_tag("/create", method: "post") do %>
-  <p><input type="submit" value="Submit Your Own Document"></p>
-  <% end %>
+<div class="jumbotron">
+  <h1>Welcome to vlajipno!</h1>
+  <p>vlajipno is a Lojban full text dictionary for Lojban beginners to read Lojban texts. </p>
+  <p><a href="/about" class="btn btn-primary btn-lg" role="button">Learn more</a></p>
 </div>
+<h1>See Existing Documents</h1>
+<ul class="list-group">
+<% @documents.each do |document| %>
+  <li class="list-group-item">
+  <%= link_to document.title, "/#{document.name}"%>
+  </li>
+<% end %>
+</ul>
+<%= form_tag("/create", method: "post") do %>
+<p><input type="submit" value="Submit Your Own Document"></p>
+<% end %>

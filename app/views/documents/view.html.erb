@@ -1,84 +1,9 @@
-<style>
-a.definified {
-  color: black; text-decoration: none;
-}
-
-a.definified:hover, a.definified:visited, a.definified:link, a.definified:active
-{
-    text-decoration: none;
-}
-
-.content {
-  font-size: 15pt;
-  max-width: 500pt;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.title {
-  text-align: center;
-}
-
-label {
-    display: inline-block;
-    width: 5em;
-}
-.red {
-    color: red;
-}
-.ui-tooltip, .arrow:after {
-    background: black;
-}
-.ui-tooltip {
-    padding: 10px 20px;
-    color: white;
-    border-radius: 20px;
-    font: 14px"Helvetica Neue", Sans-Serif;
-    box-shadow: 0 0 7px black;
-}
-.arrow {
-    width: 70px;
-    height: 16px;
-    overflow: hidden;
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    bottom: -16px;
-}
-.arrow.top {
-    top: -16px;
-    bottom: auto;
-}
-.arrow.left {
-    left: 20%;
-}
-.arrow:after {
-    content:"";
-    position: absolute;
-    left: 20px;
-    top: -20px;
-    width: 25px;
-    height: 25px;
-    box-shadow: 6px 5px 9px -9px black;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    tranform: rotate(45deg);
-}
-.arrow.top:after {
-    bottom: -20px;
-    top: auto;
-}
-
-</style>
-<div class="container">
-
-<h1 class="title"><%= @definified_title.strip != "" ? @definified_title.html_safe : "(No title)" %></h1>
+<h1><%= @definified_title.strip != "" ? @definified_title.html_safe : "(No title)" %></h1>
 <p class="content"><%= @definified_content.strip != "" ? @definified_content.html_safe : "(No content yet)" %></p>
-<p id="edit" class="content"><a href="/<%= @document.name %>/edit" class="btn btn-primary btn-lg" role="button">Edit</a></p>
 
-</div>
+<form action="/<%= @document.name %>/edit">
+<p><input type="submit" value="Edit"></p>
+</form>
 
 <script>
 $(function () {
@@ -90,6 +15,6 @@ $(function () {
        }
    });
 
-   $('a').tooltip();
+   $('a.definified').tooltip();
 });
 </script>
