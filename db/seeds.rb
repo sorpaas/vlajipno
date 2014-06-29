@@ -5,10 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-ActiveSupport::JSON.decode(File.read("db/dictionary_html.json")).each do |word, definition|
-  entry = Entry.find_or_create_by word: word
-  entry.definition = definition
-  entry.save
-  puts "word: #{word}, definition: #{definition}"
-end
